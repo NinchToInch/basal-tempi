@@ -13,9 +13,7 @@
 
   <v-container>
     <v-row>
-      <div class="chart-container">
-        <canvas ref="canvas"></canvas>
-      </div>
+      <canvas ref="canvas"></canvas>
     </v-row>
   </v-container>
 
@@ -176,12 +174,6 @@ export default {
 </script>
 
 <style>
-.chart-container {
-  width: 100%;
-  height: 400px;
-  /* Definieren Sie eine feste Höhe für das Chart */
-}
-
 canvas {
   width: 100% !important;
   height: 100% !important;
