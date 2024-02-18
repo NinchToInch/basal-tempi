@@ -3,7 +3,7 @@
     <v-row>
       <v-sheet width="300" class="mx-auto">
         <v-form @submit.prevent>
-          <v-text-field v-model="temperature" label="Temperatur °C"></v-text-field>
+          <v-text-field v-model="temperature" type="number" label="Temperatur °C"></v-text-field>
           <v-btn type="submit" block class="mt-2" @click="submitTemperature">Absenden</v-btn>
         </v-form>
         <v-btn block class="mt-2" @click="dialog = true">Zyklus Start</v-btn>
