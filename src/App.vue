@@ -1,11 +1,11 @@
 <template>
   <v-app>
     <v-main>
-      <HelloWorld />
+      <MainPage />
     </v-main>
   </v-app>
 </template>
 
 <script setup>
-  //
+//
 </script>
