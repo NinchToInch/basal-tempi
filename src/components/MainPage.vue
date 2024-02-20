@@ -134,12 +134,30 @@ export default {
     loadData() {
       const data = JSON.parse(localStorage.getItem('temperatureData')) || [];
       const cycleStarts = JSON.parse(localStorage.getItem('cycleStarts')) || [];
-      const lastCycleStart = cycleStarts.length > 0 ? cycleStarts[cycleStarts.length - 1] : 0; // Verwende 0 als Fallback
+      const lastCycleStart = cycleStarts.length > 0 ? cycleStarts[cycleStarts.length - 1] : 0;
 
       const filteredData = data.filter(item => item.timestamp >= lastCycleStart);
 
       this.chartData.labels = filteredData.map(item => item.label);
       this.chartData.datasets[0].data = filteredData.map(item => item.temperatur);
+
+      // Update chart min and max
+      this.updateChartMinMax();
+    },
+    updateChartMinMax() {
+      const temperatures = this.chartData.datasets[0].data;
+      if (temperatures.length > 0) {
+        const minTemp = Math.min(...temperatures);
+        const maxTemp = Math.max(...temperatures);
+
+        // Setzen Sie die y-Achsenbereiche mit einem Puffer
+        this.chartOptions.scales.y.min = minTemp - 1; // 1 Grad weniger als das Minimum
+        this.chartOptions.scales.y.max = maxTemp + 1; // 1 Grad mehr als das Maximum
+      } else {
+        // Setze Standardwerte, wenn keine Daten vorhanden sind
+        this.chartOptions.scales.y.min = -10;
+        this.chartOptions.scales.y.max = 20;
+      }
     },
     submitTemperature() {
       const timestamp = new Date().getTime(); // Aktuellen Timestamp holen
@@ -156,7 +174,6 @@ export default {
         this.renderChart();
       }
     },
-
     renderChart() {
       if (this.myChart) {
         this.myChart.destroy();
